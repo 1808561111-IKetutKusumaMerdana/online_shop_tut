@@ -11,6 +11,7 @@ import 'package:online_shop_app/models/user_product.dart';
 import 'package:online_shop_app/ui/add_product_page.dart';
 import 'package:online_shop_app/ui/edit_product_page.dart';
 import 'package:online_shop_app/ui/product_detail_page.dart';
+import 'package:online_shop_app/widgets/member_widgets.dart';
 import 'package:online_shop_app/widgets/price_widgets.dart';
 
 class HomeTryPage extends StatefulWidget {
@@ -56,6 +57,7 @@ class _HomeTryPageState extends State<HomeTryPage> {
       decoration: BoxDecoration(color: Colors.white),
       child: Scaffold(
           appBar: AppBar(
+            elevation: 0,
             backgroundColor: Colors.white,
             centerTitle: true,
             title: Row(
@@ -103,7 +105,7 @@ class _HomeTryPageState extends State<HomeTryPage> {
                 if (snapshot.hasData) {
                   return Container(
                     // margin: EdgeInsets.all(10),
-                    color: Colors.grey.shade200,
+                    // color: Colors.grey.shade200,
                     padding: const EdgeInsets.all(8.0),
                     child: GridView.builder(
                         itemCount: snapshot.data!.length,
@@ -135,7 +137,7 @@ class _HomeTryPageState extends State<HomeTryPage> {
                                       top: 12, right: 12, left: 12, bottom: 5),
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -153,51 +155,33 @@ class _HomeTryPageState extends State<HomeTryPage> {
                                           ),
                                         ],
                                       ),
-
                                       Image.network(
                                         snapshot.data![index].image_url,
-                                        height: 100,
-                                        width: 100,
+                                        height: 120,
+                                        width: 120,
                                       ),
-
                                       Text(
                                         snapshot.data![index].name,
                                         style: GoogleFonts.lato(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600),
                                       ),
-
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         snapshot.data![index].description,
                                         style: productFonts.copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w200),
                                       ),
-
                                       PriceWidgets(
                                         productPrice:
                                             snapshot.data![index].price,
                                       ),
-                                      // SizedBox(
-                                      //   height: 10,
-                                      // ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Non member",
-                                            style: GoogleFonts.lato(
-                                                fontSize: 10,
-                                                fontStyle: FontStyle.italic),
-                                          ),
-                                          Text(
-                                            "Member only",
-                                            style: GoogleFonts.lato(
-                                                fontSize: 10,
-                                                fontStyle: FontStyle.italic),
-                                          ),
-                                        ],
+                                      MemberWidgets(),
+                                      SizedBox(
+                                        height: 10,
                                       ),
                                       Row(
                                         mainAxisAlignment:
