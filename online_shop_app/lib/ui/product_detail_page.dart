@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:online_shop_app/models/user_product.dart';
 import 'package:online_shop_app/ui/home_page.dart';
 import 'package:online_shop_app/ui/home_try_page.dart';
 

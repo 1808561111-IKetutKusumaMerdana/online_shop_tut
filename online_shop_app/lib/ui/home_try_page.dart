@@ -5,9 +5,13 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:online_shop_app/models/delete_product.dart';
+import 'package:online_shop_app/models/fonts_product.dart';
+import 'package:online_shop_app/models/user_product.dart';
 import 'package:online_shop_app/ui/add_product_page.dart';
 import 'package:online_shop_app/ui/edit_product_page.dart';
 import 'package:online_shop_app/ui/product_detail_page.dart';
+import 'package:online_shop_app/widgets/price_widgets.dart';
 
 class HomeTryPage extends StatefulWidget {
   const HomeTryPage({Key? key}) : super(key: key);
@@ -41,15 +45,6 @@ Future<List<User>> getProducts() async {
   print(userList.length);
 
   return userList;
-}
-
-Future deleteProduct(int productId) async {
-  String id = productId.toString();
-  var response = await http.delete(
-    Uri.parse("http://10.0.2.2:8000/api/products/$id"),
-  );
-
-  return jsonDecode(response.body);
 }
 
 class _HomeTryPageState extends State<HomeTryPage> {
@@ -158,49 +153,30 @@ class _HomeTryPageState extends State<HomeTryPage> {
                                           ),
                                         ],
                                       ),
-                                      // SizedBox(
-                                      //   height: 10,
-                                      // ),
+
                                       Image.network(
                                         snapshot.data![index].image_url,
                                         height: 100,
                                         width: 100,
                                       ),
-                                      // SizedBox(
-                                      //   height: 10,
-                                      // ),
+
                                       Text(
                                         snapshot.data![index].name,
                                         style: GoogleFonts.lato(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      // SizedBox(
-                                      //   height: 5,
-                                      // ),
+
                                       Text(
                                         snapshot.data![index].description,
-                                        style: GoogleFonts.lato(),
+                                        style: productFonts.copyWith(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w200),
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          // Icon(Icons.edit),
-                                          Text(
-                                            "Rp ${snapshot.data![index].price}",
-                                            style: GoogleFonts.lato(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "Rp 45.000",
-                                            style: GoogleFonts.lato(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red.shade400),
-                                          ),
-                                        ],
+
+                                      PriceWidgets(
+                                        productPrice:
+                                            snapshot.data![index].price,
                                       ),
                                       // SizedBox(
                                       //   height: 10,
@@ -291,14 +267,4 @@ class _HomeTryPageState extends State<HomeTryPage> {
               }))),
     );
   }
-}
-
-class User {
-  int id;
-  String name;
-  String description;
-  String price;
-  String image_url;
-
-  User(this.id, this.name, this.description, this.price, this.image_url);
 }
