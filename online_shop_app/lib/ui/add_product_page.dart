@@ -134,6 +134,13 @@ class AddProductPage extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Berhasil Menambahkan Produk")));
                       });
+                    } else {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: ((context) {
+                        return HomeTryPage();
+                      })));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Tidak Berhasil Menambahkan Produk")));
                     }
                   },
                   child: Text("Save"),

@@ -155,6 +155,9 @@ class _HomeTryPageState extends State<HomeTryPage> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Image.network(
                                         snapshot.data![index].image_url,
                                         height: 120,
@@ -210,16 +213,54 @@ class _HomeTryPageState extends State<HomeTryPage> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  deleteProduct(snapshot
-                                                          .data![index].id)
-                                                      .then((value) {
-                                                    setState(() {});
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(SnackBar(
-                                                            content: Text(
-                                                                "Berhasil dihapus")));
-                                                  });
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: Text("Hapus "),
+                                                          content: Text(
+                                                            "Yakin menghapus ${snapshot.data![index].name}",
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                deleteProduct(snapshot
+                                                                        .data![
+                                                                            index]
+                                                                        .id)
+                                                                    .then(
+                                                                  (value) {
+                                                                    setState(
+                                                                        () {});
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        content:
+                                                                            Text("Berhasil dihapus"),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                );
+
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              child:
+                                                                  Text("Yes"),
+                                                            ),
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                                child:
+                                                                    Text("No"))
+                                                          ],
+                                                        );
+                                                      });
                                                 },
                                                 child: Icon(
                                                   Icons.delete,
